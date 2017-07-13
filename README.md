@@ -2,6 +2,8 @@
 
 📐 Reddit bot that converts imperial measurements into the metric system.
 
+---
+
 ### Pending tasks
 
 * [ ] Do the conversion of every unit (most of)
