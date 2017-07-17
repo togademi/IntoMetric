@@ -68,6 +68,7 @@ for comment in im.stream.comments():
 		list_of_words = text.lower().split()
 		for u in range(len(units_imp)):
             if (units_imp[u] in list_of_words):
+                
                 num_str = list_of_words[list_of_words.index(units[u])-1]
                 num_usable = num_str.replace(',','')
                 if is_number(num_usable):
