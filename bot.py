@@ -60,18 +60,16 @@ def is_number(s):
 
 
 
-# ------ Trying with the for loop over the list-------------
+## ------ Trying with the for loop over the list-------------
 for comment in im.stream.comments():
     author = comment.author
     if (author!='IntoMetric' and comment.id not in posts_replied_to):
-		text = comment.body
-		list_of_words = text.lower().split()
-		for u in range(len(units_imp)):
-            	if (units_imp[u] in list_of_words):
-                
-                	num_str = list_of_words[list_of_words.index(units[u])-1]
-                	num_usable = num_str.replace(',','')
-                	if is_number(num_usable):
-					num_eur = num_usable.replace('.',',')
-					comment.reply('''"^"+num_eur+" "+units_imp[u]+" = "+str(float(num_usable)*multip[u])+" "+units_met[u]
-					"^^[Why](http://tinyimg.io/i/s7WoCh9.jpg) | [/r/](https://www.reddit.com/r/IntoMetric/) | [Source code](https://github.com/togademi/IntoMetric)"''')
+        text = comment.body
+        list_of_words = text.lower().split()
+        for u in range(len(units_imp)):
+            if (units_imp[u] in list_of_words):
+            	num_str = list_of_words[list_of_words.index(units_imp[u])-1]
+            	num_usable = num_str.replace(',','')
+            	if is_number(num_usable):
+                    num_eur = num_usable.replace('.',',')
+                    comment.reply(num_eur+" "+units_imp[u]+" = "+str(float(num_usable)*multip[u])+" "+units_met[u])
