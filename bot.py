@@ -1,22 +1,24 @@
 import praw
 import os
 
-with open('/home/tomas/IntoMetric/posts_replied_to.txt') as f:
-posts_replied_to = open('posts_replied_to.txt','r+')
+#with open('/home/tomas/IntoMetric/posts_replied_to.txt') as f:
+with open('posts_replied_to.txt','r+') as f:
+    posts_replied_to = f.read()
+    posts_replied_to = posts_replied_to.split("\n")
 
 reddit = praw.Reddit('IntoMetric')
 
 # Have we run this code before? If not, create an empty list
-if not os.path.isfile("posts_replied_to.txt"):
-    posts_replied_to = []
+# if not os.path.isfile("posts_replied_to.txt"):
+#     posts_replied_to = []
 
 # If we have run the code before, load the list of posts we have replied to
-else:
-    # Read the file into a list and remove any empty values
-    with open("posts_replied_to.txt", "r") as f:
-        posts_replied_to = f.read()
-        posts_replied_to = posts_replied_to.split("\n")
-        posts_replied_to = list(filter(None, posts_replied_to))
+# else:
+#     # Read the file into a list and remove any empty values
+#     with open("posts_replied_to.txt", "r") as f:
+#         posts_replied_to = f.read()
+#         posts_replied_to = posts_replied_to.split("\n")
+#         posts_replied_to = list(filter(None, posts_replied_to))
 
 im = reddit.subreddit('IntoMetric')
 
@@ -31,7 +33,6 @@ def is_number(s):
     except ValueError:
         return False
 
-print posts_replied_to
 
 for comment in im.stream.comments():
     author = comment.author
@@ -45,5 +46,5 @@ for comment in im.stream.comments():
             	if is_number(num_usable):
                     num_eur = num_usable.replace('.',',')
                     comment.reply(num_eur+" "+units_imp[u]+" = "+str(float(num_usable)*multip[u])+" "+units_met[u])
-                    posts_replied_to.append(comment.id)
-                    print posts_replied_to
+                    with open('posts_replied_to.txt','r+') as f:
+                        f.write(comment.id+"\n")
